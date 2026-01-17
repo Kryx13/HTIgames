@@ -8,10 +8,11 @@ public class InputManager : MonoBehaviour
     private GameControls gameControls;
 
     public Vector2 MoveInput { get; private set; }
-    public Vector2 LookInput { get; private set; } // Nouveau
+    public Vector2 LookInput { get; private set; }
     public bool JumpTriggered { get; private set; }
     public bool RunHeld { get; private set; }
 
+    public bool InteractTriggered { get; private set; }
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -36,8 +37,9 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         MoveInput = gameControls.Player.Move.ReadValue<Vector2>();
-        LookInput = gameControls.Player.Look.ReadValue<Vector2>(); // Nouveau
+        LookInput = gameControls.Player.Look.ReadValue<Vector2>(); 
         JumpTriggered = gameControls.Player.Jump.WasPressedThisFrame();
         RunHeld = gameControls.Player.Run.IsPressed();
+        InteractTriggered = gameControls.Player.Interact.WasPressedThisFrame();
     }
 }

@@ -29,7 +29,7 @@ The game natively supports both QWERTY and AZERTY layouts.
 | **Jump** | `Space` |
 | **Run** | `Left Shift` |
 | **Interact** | `E` |
-| **Inventory** | `I` (Coming soon) |
+| **Inventory** | `I` |
 | **Menu / Pause** | `Esc` |
 
 ---
@@ -58,7 +58,7 @@ Development follows an atomic, step-by-step approach.
 - [ ] **Stage 4:** Item Puzzle (Stele)
 - [ ] **Stage 5:** Destructible Maze (Pickaxe)
 - [ ] **Stage 6:** Blackout (Flashlight navigation)
-- [ ] **Stage 7:** Finale & Amulet
+- [ ] **Stage 7:** Final & Amulet
 
 ### 🟣 Phase 4: Polish & UI
 - [ ] Main Menu & Pause
