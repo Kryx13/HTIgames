@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Data_Sac
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Sac
-  description: 
+  description: Augmente la capacité de l'inventaire de 3 emplacements
   icon: {fileID: 0}
   prefab: {fileID: 0}
-  isBackpack: 0
+  isBackpack: 1

@@ -232,6 +232,10 @@ GameObject:
   - component: {fileID: 188503504}
   - component: {fileID: 188503509}
   - component: {fileID: 188503510}
+  - component: {fileID: 188503511}
+  - component: {fileID: 188503512}
+  - component: {fileID: 188503513}
+  - component: {fileID: 188503514}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -392,6 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
   maxSlots: 2
+  hasBackpack: 0
   items: []
 --- !u!114 &188503510
 MonoBehaviour:
@@ -408,7 +413,69 @@ MonoBehaviour:
   interactionRange: 4
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
+  showDebugRay: 1
+--- !u!114 &188503511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188503502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e3c39c831ee424d846d49b58f14244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionDiagnostic
+  checkRange: 4
+--- !u!114 &188503512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188503502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5fa0496f82851141be736bb08fd1d62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionDebugVisual
+  rayDistance: 4
+  showDebugSphere: 1
+  sphereRadius: 0.5
+--- !u!114 &188503513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188503502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8de97386cfd5be45817e3bbd63df0c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemDropper
+  dropDistance: 2
+  dropHeight: 0.5
+  itemPickupPrefab: {fileID: 0}
+--- !u!114 &188503514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188503502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b18941ca6a63723438f7071ca06feb6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackpackVisual
+  inventory: {fileID: 0}
+  backpackModel: {fileID: 0}
+  autoCreateVisual: 1
+  backpackPosition: {x: 0, y: 0, z: -0.6}
+  backpackScale: {x: 0.4, y: 0.5, z: 0.2}
+  backpackColor: {r: 0.4, g: 0.25, b: 0.1, a: 1}
 --- !u!1 &259985987
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,6 +952,7 @@ GameObject:
   - component: {fileID: 460244371}
   - component: {fileID: 460244370}
   - component: {fileID: 460244369}
+  - component: {fileID: 460244374}
   m_Layer: 6
   m_Name: Pickup_lampe
   m_TagString: Untagged
@@ -992,13 +1060,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 460244368}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 5, y: 1, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.3, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &460244374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460244368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081a23fc23e45ce4e846c4c9841aebef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionSystemHelper
+  autoConfigureOnAwake: 1
+  colliderType: 2
 --- !u!1 &559604055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,6 +1322,7 @@ GameObject:
   - component: {fileID: 760052532}
   - component: {fileID: 760052531}
   - component: {fileID: 760052530}
+  - component: {fileID: 760052535}
   m_Layer: 6
   m_Name: Pickup_pioche
   m_TagString: Untagged
@@ -1347,11 +1430,25 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3, y: 1, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 1, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &760052535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760052529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081a23fc23e45ce4e846c4c9841aebef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionSystemHelper
+  autoConfigureOnAwake: 1
+  colliderType: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,6 +1511,7 @@ GameObject:
   - component: {fileID: 907361849}
   - component: {fileID: 907361848}
   - component: {fileID: 907361847}
+  - component: {fileID: 907361852}
   m_Layer: 6
   m_Name: Pickup_sac
   m_TagString: Untagged
@@ -1521,11 +1619,25 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: 1, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 1, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &907361852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907361846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081a23fc23e45ce4e846c4c9841aebef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionSystemHelper
+  autoConfigureOnAwake: 1
+  colliderType: 0
 --- !u!1 &1224778906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,6 +1682,7 @@ GameObject:
   - component: {fileID: 1232098359}
   - component: {fileID: 1232098358}
   - component: {fileID: 1232098357}
+  - component: {fileID: 1232098362}
   m_Layer: 6
   m_Name: Pickup_pistolet
   m_TagString: Untagged
@@ -1677,11 +1790,25 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7, y: 1, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.4, z: 0.46}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1232098362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232098356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081a23fc23e45ce4e846c4c9841aebef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionSystemHelper
+  autoConfigureOnAwake: 1
+  colliderType: 0
 --- !u!1 &1679311757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1774,6 +1901,7 @@ GameObject:
   - component: {fileID: 1746824112}
   - component: {fileID: 1746824111}
   - component: {fileID: 1746824110}
+  - component: {fileID: 1746824115}
   m_Layer: 6
   m_Name: Pickup_amulette
   m_TagString: Untagged
@@ -1881,11 +2009,25 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 9, y: 1, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1746824115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746824109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081a23fc23e45ce4e846c4c9841aebef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionSystemHelper
+  autoConfigureOnAwake: 1
+  colliderType: 1
 --- !u!1 &2107261811
 GameObject:
   m_ObjectHideFlags: 0
