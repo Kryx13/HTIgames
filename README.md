@@ -30,11 +30,12 @@ The game natively supports both QWERTY and AZERTY layouts.
 | **Run** | `Left Shift` |
 | **Pick up Items** | `Automatic (walk over item)` |
 | **Drop Item** | `G` |
+| **Toggle Flashlight** | `F` |
 | **Use Item** | `Left Click` |
 | **Inventory** | `I` |
 | **Menu / Pause** | `Esc` |
 
-> **Note:** Items are picked up automatically when walking over them. Press `G` to drop the last item in your inventory.
+> **Note:** Items are picked up automatically when walking over them. Press `G` to drop the last item. Press `F` to toggle the flashlight (requires Lampe in inventory).
 
 ---
 
@@ -152,10 +153,11 @@ The game natively supports both QWERTY and AZERTY layouts.
 - [x] Inventory System (2 slots + backpack extension)
 - [x] Item Data (ScriptableObjects)
 - [x] Item Pickup System (OnTriggerEnter)
+- [x] Item: Sac (Backpack +3 slots with visual)
+- [x] Item: Lampe (Spotlight toggle with F key)
 - [ ] Push mechanics (Rigidbody)
 - [ ] Item: Pistolet (Raycast shooting)
 - [ ] Item: Pioche (Destructible walls)
-- [ ] Item: Lampe (Spotlight)
 
 ### 🔴 Phase 3: Stages
 - [ ] Stage 0: Tutorial room
@@ -193,15 +195,17 @@ Assets/
 │
 └── _Scripts/
     ├── GameControls.cs                # Auto-generated Input Actions wrapper
-    ├── GameControls.inputactions      # Input Action Asset (WASD, Jump, Drop, etc.)
+    ├── GameControls.inputactions      # Input Action Asset (WASD, Jump, Drop, F, etc.)
     ├── IInteractable.cs               # Interface for interactive objects (doors, levers)
     ├── InputManager.cs                # Singleton handling all inputs
     ├── Interactor.cs                  # (Legacy) Raycast system - kept for future use
-    ├── Inventory.cs                   # Player inventory (slots, add/remove)
+    ├── Inventory.cs                   # Player inventory (slots, add/remove, backpack)
     ├── ItemData.cs                    # ScriptableObject definition for items
     ├── ItemDropper.cs                 # Drop system (G key) - spawns items in world
     ├── ItemPickup.cs                  # Automatic pickup via OnTriggerEnter
     ├── InteractionSystemHelper.cs     # Auto-configure pickup objects
+    ├── BackpackVisual.cs              # Visual backpack on player when equipped
+    ├── Flashlight.cs                  # Flashlight system (F key toggle, spotlight)
     ├── PlayerController.cs            # Movement, jump, camera rotation
     └── PlayerSetupChecker.cs          # Debug tool - validates player config
 ```
@@ -218,6 +222,8 @@ Assets/
 | `ItemData` | ScriptableObject — item properties (name, icon, isBackpack) |
 | `ItemPickup` | MonoBehaviour — automatic pickup via OnTriggerEnter |
 | `ItemDropper` | Drops last inventory item in front of player (G key) |
+| `BackpackVisual` | Displays backpack model on player when equipped |
+| `Flashlight` | Toggles spotlight with F key (requires Lampe item) |
 | `InteractionSystemHelper` | Auto-configures pickups (collider, trigger, layer) |
 | `IInteractable` | *(Optional)* Interface for future interactive objects (doors, levers) |
 
