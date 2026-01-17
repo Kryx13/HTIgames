@@ -63,7 +63,16 @@
                 {
                     "name": "ToggleFlashlight",
                     "type": "Button",
-                    "id": "b2c3d4e5-f6a7-8901-2345-678901bcdefg",
+                    "id": "b2c3d4e5-f6a7-8901-2345-678901bcdef0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "c3d4e5f6-a7b8-9012-3456-789012cdef01",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -183,12 +192,23 @@
                 },
                 {
                     "name": "",
-                    "id": "8e7d6c5b-4a32-1fed-cba9-876543210abc",
+                    "id": "8e7d6c5b-4a32-1fed-cba9-876543210ab0",
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "ToggleFlashlight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d6c5b4a-3210-fedc-ba98-76543210ab01",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

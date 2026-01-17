@@ -31,11 +31,11 @@ The game natively supports both QWERTY and AZERTY layouts.
 | **Pick up Items** | `Automatic (walk over item)` |
 | **Drop Item** | `G` |
 | **Toggle Flashlight** | `F` |
-| **Use Item** | `Left Click` |
+| **Shoot (Gun)** | `Left Click` |
 | **Inventory** | `I` |
 | **Menu / Pause** | `Esc` |
 
-> **Note:** Items are picked up automatically when walking over them. Press `G` to drop the last item. Press `F` to toggle the flashlight (requires Lampe in inventory).
+> **Note:** Items are picked up automatically when walking over them. Press `G` to drop the last item. Press `F` to toggle flashlight (requires Lampe). Left Click to shoot (requires Pistolet).
 
 ---
 
@@ -155,8 +155,8 @@ The game natively supports both QWERTY and AZERTY layouts.
 - [x] Item Pickup System (OnTriggerEnter)
 - [x] Item: Sac (Backpack +3 slots with visual)
 - [x] Item: Lampe (Spotlight toggle with F key)
+- [x] Item: Pistolet (Raycast shooting, Left Click)
 - [ ] Push mechanics (Rigidbody)
-- [ ] Item: Pistolet (Raycast shooting)
 - [ ] Item: Pioche (Destructible walls)
 
 ### 🔴 Phase 3: Stages
@@ -195,7 +195,7 @@ Assets/
 │
 └── _Scripts/
     ├── GameControls.cs                # Auto-generated Input Actions wrapper
-    ├── GameControls.inputactions      # Input Action Asset (WASD, Jump, Drop, F, etc.)
+    ├── GameControls.inputactions      # Input Action Asset (WASD, Jump, Shoot, etc.)
     ├── IInteractable.cs               # Interface for interactive objects (doors, levers)
     ├── InputManager.cs                # Singleton handling all inputs
     ├── Interactor.cs                  # (Legacy) Raycast system - kept for future use
@@ -206,6 +206,9 @@ Assets/
     ├── InteractionSystemHelper.cs     # Auto-configure pickup objects
     ├── BackpackVisual.cs              # Visual backpack on player when equipped
     ├── Flashlight.cs                  # Flashlight system (F key toggle, spotlight)
+    ├── Gun.cs                         # Gun system (Left Click, raycast shooting)
+    ├── Target.cs                      # Shootable targets with health and events
+    ├── MovingTarget.cs                # Moving targets with different patterns
     ├── PlayerController.cs            # Movement, jump, camera rotation
     └── PlayerSetupChecker.cs          # Debug tool - validates player config
 ```
@@ -224,6 +227,9 @@ Assets/
 | `ItemDropper` | Drops last inventory item in front of player (G key) |
 | `BackpackVisual` | Displays backpack model on player when equipped |
 | `Flashlight` | Toggles spotlight with F key (requires Lampe item) |
+| `Gun` | Shooting system with Left Click (requires Pistolet item) |
+| `Target` | Shootable targets with health, events, visual feedback |
+| `MovingTarget` | Targets with movement patterns (horizontal, vertical, random) |
 | `InteractionSystemHelper` | Auto-configures pickups (collider, trigger, layer) |
 | `IInteractable` | *(Optional)* Interface for future interactive objects (doors, levers) |
 
