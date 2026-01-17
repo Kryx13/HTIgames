@@ -156,7 +156,7 @@ The game natively supports both QWERTY and AZERTY layouts.
 - [x] Item: Sac (Backpack +3 slots with visual)
 - [x] Item: Lampe (Spotlight toggle with F key)
 - [x] Item: Pistolet (Raycast shooting, Left Click)
-- [ ] Push mechanics (Rigidbody)
+- [x] Push mechanics (BasicRigidBodyPush + PushableObject)
 - [ ] Item: Pioche (Destructible walls)
 
 ### 🔴 Phase 3: Stages
@@ -209,6 +209,8 @@ Assets/
     ├── Gun.cs                         # Gun system (Left Click, raycast shooting)
     ├── Target.cs                      # Shootable targets with health and events
     ├── MovingTarget.cs                # Moving targets with different patterns
+    ├── PushableObject.cs              # Auto-configure pushable objects (Rigidbody)
+    ├── PlayerPushSetup.cs             # Setup player push system
     ├── PlayerController.cs            # Movement, jump, camera rotation
     └── PlayerSetupChecker.cs          # Debug tool - validates player config
 ```
@@ -230,6 +232,8 @@ Assets/
 | `Gun` | Shooting system with Left Click (requires Pistolet item) |
 | `Target` | Shootable targets with health, events, visual feedback |
 | `MovingTarget` | Targets with movement patterns (horizontal, vertical, random) |
+| `PushableObject` | Auto-configures pushable objects with Rigidbody |
+| `PlayerPushSetup` | Configures player to push objects (BasicRigidBodyPush) |
 | `InteractionSystemHelper` | Auto-configures pickups (collider, trigger, layer) |
 | `IInteractable` | *(Optional)* Interface for future interactive objects (doors, levers) |
 
