@@ -22,58 +22,231 @@ A third-person 3D adventure game combining demanding parkour mechanics and logic
 
 The game natively supports both QWERTY and AZERTY layouts.
 
-| Action | Key (Keyboard) |
+| Action | Key |
 | :--- | :--- |
-| **Move** | `W` `A` `S` `D` (or ZQSD) |
+| **Move** | `WASD` / `ZQSD` |
 | **Camera** | `Mouse` |
 | **Jump** | `Space` |
 | **Run** | `Left Shift` |
-| **Interact** | `E` |
+| **Interact / Pick up** | `E` |
+| **Use Item** | `Left Click` |
 | **Inventory** | `I` |
 | **Menu / Pause** | `Esc` |
 
 ---
 
-## 🗺️ Roadmap & Progress
+## 🎒 Inventory & Items
 
-Development follows an atomic, step-by-step approach.
+**Base inventory:** 2 slots (expandable to 5 with Backpack)
 
-### 🟢 Phase 1: Foundations (3C)
-- [x] Project Setup & Git Configuration
-- [x] Player Controller (Move, Jump, Run)
-- [x] 3rd Person Camera (Cinemachine)
-- [x] Unified Input System
-
-### 🟡 Phase 2: Interactions & Core Gameplay
-- [ ] **Interaction System (Raycast & Interface)** *(In Progress)*
-- [ ] Inventory System (UI & Data)
-- [ ] Physics: Pushing objects
-- [ ] Items: Pistol, Pickaxe, Flashlight
-
-### 🔴 Phase 3: Level Design (Stages)
-- [ ] **Stage 0:** Tutorial & Introduction
-- [ ] **Stage 1:** Parkour (Falling blocks)
-- [ ] **Stage 2:** Puzzle (Logic gates)
-- [ ] **Stage 3:** Shoot & Platforming (Moving targets)
-- [ ] **Stage 4:** Item Puzzle (Stele)
-- [ ] **Stage 5:** Destructible Maze (Pickaxe)
-- [ ] **Stage 6:** Blackout (Flashlight navigation)
-- [ ] **Stage 7:** Final & Amulet
-
-### 🟣 Phase 4: Polish & UI
-- [ ] Main Menu & Pause
-- [ ] Timer & Leaderboard
-- [ ] Save System (JSON/PlayerPrefs)
-- [ ] Sound Design & Visual Atmosphere
+| Item | Effect | Location |
+| :--- | :--- | :--- |
+| **Amulette** | Opens final door (Stage 7) | Stage 0 |
+| **Pistolet** | Shoots targets/enemies | Stage 2 (Room 5) |
+| **Sac** | +3 inventory slots | Stage 5 |
+| **Pioche** | Breaks fragile walls | Stage 5 |
+| **Lampe** | Illuminates dark areas | Stage 5 (hidden) |
+| **Map** | Shows maze path (wall item) | Stage 5 |
 
 ---
 
-## 🏗️ Code Architecture
+## 🗺️ Stage Breakdown
 
-The project prioritizes decoupled and maintainable code:
-* **`IInteractable`**: Generic interface for all interactive objects (Doors, Items, Levers).
-* **`GameManager`**: Handles global game state (Timer, Stage transitions).
-* **`InputManager`**: Singleton handling user inputs.
+### Stage 0 — Tutorial
+- Player falls from the sky into the first room
+- Tutorial signs explain controls
+- Mechanics: Move → Push blocks to reach door → Pick up **Amulette**
+
+### Stage 1 — Falling Platforms
+- Jump across platforms (blocks fall after **3 seconds**)
+- Falling returns player to Stage 0
+- Blocks reset on room re-entry
+
+### Stage 2 — Door Maze (5 Rooms)
+| Room | Doors | Destinations |
+|------|-------|--------------|
+| 1 | 2 | → Room 2, → Room 1 |
+| 2 | 3 | → Room 3, → Room 2, → Room 1 |
+| 3 | 4 | → Room 4, → Room 3, → Room 2, → Room 1 |
+| 4 | 5 | → **Stage 3**, → Room 4, → Room 5, → Room 3, → Room 2 |
+| 5 | 5 | → Rooms 1-5 (contains **Pistolet**) |
+
+*Rooms are visually identical except for door count and pistol in Room 5.*
+
+### Stage 3 — Shooting Gallery
+- Shoot targets to activate platforms (5 sequences)
+- Target behavior progression:
+  1. Static
+  2. Slow horizontal movement
+  3. Fast horizontal movement
+  4. Slow vertical OR horizontal (alternating)
+  5. Random/unpredictable movement
+
+### Stage 4 — Riddle Room
+- Room filled with various objects
+- Riddle inscription hints at correct item
+- Place correct item on **stele** to open door
+
+### Stage 5 — Destructible Maze
+- Dimensions: **5 wide × 20 long** blocks
+- Collect: **Sac**, **Pioche**, **Map** (wall)
+- Only path blocks are destructible (shown on map)
+- Hidden **Lampe** in breakable block
+
+### Stage 6 — Darkness
+- Total darkness, flashlight required
+- Floor mostly holes, narrow safe path
+
+### Stage 7 — Final Room
+- Empty room with amulet slot on door
+- Inscription: *"Pour savoir où on va, on doit savoir d'où on vient."*
+- Hint: Amulette is in Stage 0
+
+### 🏁 End Screen
+- Display total completion time
+- Leaderboard with saved runs
+- Option to save run & restart
+
+---
+
+## 🖥️ UI Screens
+
+### Main Menu
+- `Play` | `Settings` | `Leaderboard` | `Credits` | `Quit`
+
+### Pause Menu (Esc)
+- `Resume` | `Restart` | `Settings` | `Quit to Menu`
+
+### Settings
+- Volume (Master, SFX, Music)
+- Graphics quality
+- Controls remapping
+
+---
+
+## 🔊 Audio Design
+
+| Category | Examples |
+| :--- | :--- |
+| **Ambiance** | Dark pyramid atmosphere, echo, dripping water |
+| **Player** | Footsteps (stone), jump, land, push object |
+| **Items** | Pickup sound, pistol shot, pickaxe hit, flashlight toggle |
+| **UI** | Button hover, click, menu open/close |
+| **Events** | Block falling, door opening, target hit, victory jingle |
+
+---
+
+## 🗺️ Roadmap & Progress
+
+### 🟢 Phase 1: Core (3C)
+- [x] Project Setup & Git
+- [x] Player Controller (Move, Jump, Run)
+- [x] 3rd Person Camera (Cinemachine)
+- [x] Input System (InputManager + GameControls)
+
+### 🟡 Phase 2: Systems
+- [x] Interaction System (Raycast + `IInteractable`)
+- [x] Inventory System (2 slots + backpack extension)
+- [x] Item Data (ScriptableObjects)
+- [x] Item Pickup System
+- [ ] Push mechanics (Rigidbody)
+- [ ] Item: Pistolet (Raycast shooting)
+- [ ] Item: Pioche (Destructible walls)
+- [ ] Item: Lampe (Spotlight)
+
+### 🔴 Phase 3: Stages
+- [ ] Stage 0: Tutorial room
+- [ ] Stage 1: Falling platforms (timer + reset)
+- [ ] Stage 2: Door maze (5 rooms logic)
+- [ ] Stage 3: Shooting gallery (target AI)
+- [ ] Stage 4: Riddle + stele
+- [ ] Stage 5: Maze + destructible blocks
+- [ ] Stage 6: Darkness navigation
+- [ ] Stage 7: Amulette finale
+
+### 🟣 Phase 4: Polish
+- [ ] Main Menu & Pause Menu
+- [ ] Timer system (global)
+- [ ] Leaderboard (save/load)
+- [ ] Sound Design & Music
+- [ ] Lighting & Atmosphere (URP)
+- [ ] Playtesting & Balancing
+
+---
+
+## 🏗️ Project Structure
+
+```
+Assets/
+├── _Data/                          # ScriptableObjects (Item definitions)
+│   ├── Data_Amulette.asset
+│   ├── Data_Lampe.asset
+│   ├── Data_Pistolet.asset
+│   ├── Data_Sac.asset
+│   └── Data_pioche.asset
+│
+├── _Scenes/
+│   └── SampleScene.unity           # Main development scene
+│
+└── _Scripts/
+    ├── GameControls.cs             # Auto-generated Input Actions wrapper
+    ├── GameControls.inputactions   # Input Action Asset (WASD, Jump, etc.)
+    ├── IInteractable.cs            # Interface for interactive objects
+    ├── InputManager.cs             # Singleton handling all inputs
+    ├── Interactor.cs               # Raycast detection for interactions
+    ├── Inventory.cs                # Player inventory (slots, add/remove)
+    ├── ItemData.cs                 # ScriptableObject definition for items
+    ├── ItemPickup.cs               # Pickup behavior (implements IInteractable)
+    └── PlayerController.cs         # Movement, jump, camera rotation
+```
+
+---
+
+## 🧩 Key Interfaces & Classes
+
+| Class/Interface | Role |
+| :--- | :--- |
+| `IInteractable` | Interface for all interactive objects (doors, items, levers) |
+| `InputManager` | Singleton — centralized input reading |
+| `PlayerController` | Handles movement, jump, camera with CharacterController |
+| `Inventory` | Manages item list, max slots, backpack expansion |
+| `ItemData` | ScriptableObject — item properties (name, icon, isBackpack) |
+| `ItemPickup` | MonoBehaviour — pickup logic, implements `IInteractable` |
+| `Interactor` | Raycast from camera center, detects `IInteractable` |
+
+---
+
+## 📦 Scene Hierarchy (SampleScene)
+
+```
+SampleScene
+├── Main Camera          # CinemachineBrain + URP Camera
+├── Virtual Camera       # Cinemachine 3rd Person Follow → CameraRoot
+├── Directional Light
+├── Global Volume        # URP Post-processing
+├── Player               # Layer: 3 | CharacterController, PlayerController, Inventory, Interactor
+│   └── CameraRoot       # Cinemachine Follow/LookAt target
+├── GameManager          # InputManager singleton
+├── Floor                # MeshCollider
+├── Canvas               # Screen Space Overlay
+│   └── Image            # Crosshair (10x10 centered)
+├── EventSystem          # InputSystemUIInputModule
+└── Pickups (Layer: 6 - Interactable)
+    ├── Pickup_amulette  # SphereCollider (trigger)
+    ├── Pickup_sac       # BoxCollider (trigger)
+    ├── Pickup_pioche    # BoxCollider (trigger)
+    ├── Pickup_lampe     # CapsuleCollider (trigger)
+    └── Pickup_pistolet  # BoxCollider (trigger)
+```
+
+---
+
+## ⚙️ Layer Configuration
+
+| Layer | Name | Usage |
+| :--- | :--- | :--- |
+| 3 | Player | Player character (ignored by camera collision) |
+| 6 | Interactable | All pickup items (for raycast filtering) |
 
 ---
 
