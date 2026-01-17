@@ -13,33 +13,75 @@ public class InputManager : MonoBehaviour
     public bool RunHeld { get; private set; }
 
     public bool InteractTriggered { get; private set; }
+
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        // Singleton pattern
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Optionnel : garde l'InputManager entre les scènes
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-        gameControls = new GameControls();
-        
-        // On s'assure que tout est activé
+        // Initialisation des GameControls
+        InitializeControls();
+    }
+
+    private void InitializeControls()
+    {
+        if (gameControls == null)
+        {
+            gameControls = new GameControls();
+            Debug.Log("✅ InputManager : GameControls initialisé");
+        }
+
+        // Activer les inputs
         gameControls.Player.Enable();
     }
 
     private void OnEnable()
     {
-        gameControls.Player.Enable();
+        if (gameControls != null)
+        {
+            gameControls.Player.Enable();
+        }
     }
 
     private void OnDisable()
     {
-        gameControls.Player.Disable();
+        if (gameControls != null)
+        {
+            gameControls.Player.Disable();
+        }
     }
 
     private void Update()
     {
+        // Protection contre les accès null
+        if (gameControls == null)
+        {
+            Debug.LogError("❌ InputManager : gameControls est null ! Réinitialisation...");
+            InitializeControls();
+            return;
+        }
+
         MoveInput = gameControls.Player.Move.ReadValue<Vector2>();
-        LookInput = gameControls.Player.Look.ReadValue<Vector2>(); 
+        LookInput = gameControls.Player.Look.ReadValue<Vector2>();
         JumpTriggered = gameControls.Player.Jump.WasPressedThisFrame();
         RunHeld = gameControls.Player.Run.IsPressed();
         InteractTriggered = gameControls.Player.Interact.WasPressedThisFrame();
+    }
+
+    private void OnDestroy()
+    {
+        if (gameControls != null)
+        {
+            gameControls.Dispose();
+        }
     }
 }

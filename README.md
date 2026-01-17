@@ -28,10 +28,13 @@ The game natively supports both QWERTY and AZERTY layouts.
 | **Camera** | `Mouse` |
 | **Jump** | `Space` |
 | **Run** | `Left Shift` |
-| **Interact / Pick up** | `E` |
+| **Pick up Items** | `Automatic (walk over item)` |
+| **Drop Item** | `G` |
 | **Use Item** | `Left Click` |
 | **Inventory** | `I` |
 | **Menu / Pause** | `Esc` |
+
+> **Note:** Items are picked up automatically when walking over them. Press `G` to drop the last item in your inventory.
 
 ---
 
@@ -145,10 +148,10 @@ The game natively supports both QWERTY and AZERTY layouts.
 - [x] Input System (InputManager + GameControls)
 
 ### 🟡 Phase 2: Systems
-- [x] Interaction System (Raycast + `IInteractable`)
+- [x] Interaction System (Automatic trigger-based pickup)
 - [x] Inventory System (2 slots + backpack extension)
 - [x] Item Data (ScriptableObjects)
-- [x] Item Pickup System
+- [x] Item Pickup System (OnTriggerEnter)
 - [ ] Push mechanics (Rigidbody)
 - [ ] Item: Pistolet (Raycast shooting)
 - [ ] Item: Pioche (Destructible walls)
@@ -189,15 +192,18 @@ Assets/
 │   └── SampleScene.unity           # Main development scene
 │
 └── _Scripts/
-    ├── GameControls.cs             # Auto-generated Input Actions wrapper
-    ├── GameControls.inputactions   # Input Action Asset (WASD, Jump, etc.)
-    ├── IInteractable.cs            # Interface for interactive objects
-    ├── InputManager.cs             # Singleton handling all inputs
-    ├── Interactor.cs               # Raycast detection for interactions
-    ├── Inventory.cs                # Player inventory (slots, add/remove)
-    ├── ItemData.cs                 # ScriptableObject definition for items
-    ├── ItemPickup.cs               # Pickup behavior (implements IInteractable)
-    └── PlayerController.cs         # Movement, jump, camera rotation
+    ├── GameControls.cs                # Auto-generated Input Actions wrapper
+    ├── GameControls.inputactions      # Input Action Asset (WASD, Jump, Drop, etc.)
+    ├── IInteractable.cs               # Interface for interactive objects (doors, levers)
+    ├── InputManager.cs                # Singleton handling all inputs
+    ├── Interactor.cs                  # (Legacy) Raycast system - kept for future use
+    ├── Inventory.cs                   # Player inventory (slots, add/remove)
+    ├── ItemData.cs                    # ScriptableObject definition for items
+    ├── ItemDropper.cs                 # Drop system (G key) - spawns items in world
+    ├── ItemPickup.cs                  # Automatic pickup via OnTriggerEnter
+    ├── InteractionSystemHelper.cs     # Auto-configure pickup objects
+    ├── PlayerController.cs            # Movement, jump, camera rotation
+    └── PlayerSetupChecker.cs          # Debug tool - validates player config
 ```
 
 ---
@@ -206,13 +212,14 @@ Assets/
 
 | Class/Interface | Role |
 | :--- | :--- |
-| `IInteractable` | Interface for all interactive objects (doors, items, levers) |
 | `InputManager` | Singleton — centralized input reading |
 | `PlayerController` | Handles movement, jump, camera with CharacterController |
 | `Inventory` | Manages item list, max slots, backpack expansion |
 | `ItemData` | ScriptableObject — item properties (name, icon, isBackpack) |
-| `ItemPickup` | MonoBehaviour — pickup logic, implements `IInteractable` |
-| `Interactor` | Raycast from camera center, detects `IInteractable` |
+| `ItemPickup` | MonoBehaviour — automatic pickup via OnTriggerEnter |
+| `ItemDropper` | Drops last inventory item in front of player (G key) |
+| `InteractionSystemHelper` | Auto-configures pickups (collider, trigger, layer) |
+| `IInteractable` | *(Optional)* Interface for future interactive objects (doors, levers) |
 
 ---
 
