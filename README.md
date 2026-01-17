@@ -32,10 +32,11 @@ The game natively supports both QWERTY and AZERTY layouts.
 | **Drop Item** | `G` |
 | **Toggle Flashlight** | `F` |
 | **Shoot (Gun)** | `Left Click` |
+| **Use Pickaxe** | `Right Click` |
 | **Inventory** | `I` |
 | **Menu / Pause** | `Esc` |
 
-> **Note:** Items are picked up automatically when walking over them. Press `G` to drop the last item. Press `F` to toggle flashlight (requires Lampe). Left Click to shoot (requires Pistolet).
+> **Note:** Items are picked up automatically when walking over them. Press `G` to drop the last item. Press `F` to toggle flashlight (requires Lampe). Left Click to shoot (requires Pistolet). Right Click to break walls (requires Pioche).
 
 ---
 
@@ -148,7 +149,7 @@ The game natively supports both QWERTY and AZERTY layouts.
 - [x] 3rd Person Camera (Cinemachine)
 - [x] Input System (InputManager + GameControls)
 
-### 🟡 Phase 2: Systems
+### 🟢 Phase 2: Systems (COMPLETED)
 - [x] Interaction System (Automatic trigger-based pickup)
 - [x] Inventory System (2 slots + backpack extension)
 - [x] Item Data (ScriptableObjects)
@@ -156,8 +157,8 @@ The game natively supports both QWERTY and AZERTY layouts.
 - [x] Item: Sac (Backpack +3 slots with visual)
 - [x] Item: Lampe (Spotlight toggle with F key)
 - [x] Item: Pistolet (Raycast shooting, Left Click)
+- [x] Item: Pioche (Destructible walls, Right Click)
 - [x] Push mechanics (BasicRigidBodyPush + PushableObject)
-- [ ] Item: Pioche (Destructible walls)
 
 ### 🔴 Phase 3: Stages
 - [ ] Stage 0: Tutorial room
@@ -195,7 +196,7 @@ Assets/
 │
 └── _Scripts/
     ├── GameControls.cs                # Auto-generated Input Actions wrapper
-    ├── GameControls.inputactions      # Input Action Asset (WASD, Jump, Shoot, etc.)
+    ├── GameControls.inputactions      # Input Action Asset (WASD, Jump, Shoot, Pickaxe, etc.)
     ├── IInteractable.cs               # Interface for interactive objects (doors, levers)
     ├── InputManager.cs                # Singleton handling all inputs
     ├── Interactor.cs                  # (Legacy) Raycast system - kept for future use
@@ -207,8 +208,10 @@ Assets/
     ├── BackpackVisual.cs              # Visual backpack on player when equipped
     ├── Flashlight.cs                  # Flashlight system (F key toggle, spotlight)
     ├── Gun.cs                         # Gun system (Left Click, raycast shooting)
+    ├── Pickaxe.cs                     # Pickaxe system (Right Click, break walls)
     ├── Target.cs                      # Shootable targets with health and events
     ├── MovingTarget.cs                # Moving targets with different patterns
+    ├── DestructibleWall.cs            # Breakable walls for pickaxe
     ├── PushableObject.cs              # Auto-configure pushable objects (Rigidbody)
     ├── PlayerPushSetup.cs             # Setup player push system
     ├── PlayerController.cs            # Movement, jump, camera rotation
@@ -230,8 +233,10 @@ Assets/
 | `BackpackVisual` | Displays backpack model on player when equipped |
 | `Flashlight` | Toggles spotlight with F key (requires Lampe item) |
 | `Gun` | Shooting system with Left Click (requires Pistolet item) |
+| `Pickaxe` | Break destructible walls with Right Click (requires Pioche item) |
 | `Target` | Shootable targets with health, events, visual feedback |
 | `MovingTarget` | Targets with movement patterns (horizontal, vertical, random) |
+| `DestructibleWall` | Breakable walls with health, visual feedback, events |
 | `PushableObject` | Auto-configures pushable objects with Rigidbody |
 | `PlayerPushSetup` | Configures player to push objects (BasicRigidBodyPush) |
 | `InteractionSystemHelper` | Auto-configures pickups (collider, trigger, layer) |

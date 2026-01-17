@@ -28,21 +28,20 @@ public class Gun : MonoBehaviour
 
     [Header("Gun Visual Model")]
     [SerializeField] private GameObject gunModel; // Modèle 3D du pistolet
-    [SerializeField] private Transform gunHolder; // Point d'attache (main droite du joueur)
+    [SerializeField] private Transform gunHolder; // Point d'attache (joueur pour vue 3ème personne)
     [SerializeField] private bool autoCreateGunModel = true;
-    [SerializeField] private float gunHideDelay = 5f; // Temps avant de cacher le pistolet (secondes)
-    [SerializeField] private Vector3 gunPosition = new Vector3(0.4f, 0.5f, 0.3f); // Position relative au joueur (côté droit, main)
+    [SerializeField] private Vector3 gunPosition = new Vector3(0.35f, 1.0f, 0.3f); // Position sur le côté droit du personnage
     [SerializeField] private Vector3 gunRotation = new Vector3(0, 90, 0); // Rotation
-    [SerializeField] private Vector3 gunScale = new Vector3(0.08f, 0.08f, 0.2f); // Échelle
+    [SerializeField] private Vector3 gunScale = new Vector3(0.12f, 0.12f, 0.3f); // Échelle plus grande
 
     [Header("Auto Effects")]
     [SerializeField] private bool autoCreateImpactEffect = true;
 
     private float nextFireTime = 0f;
-    private float lastShotTime = 0f;
     private bool hasGun = false;
     private LineRenderer bulletTrailRenderer;
     private Transform barrelTip; // Point de sortie de la balle (bout du canon)
+    private ItemVisibilityManager visibilityManager;
 
     private void Start()
     {
@@ -60,7 +59,7 @@ public class Gun : MonoBehaviour
         // Si pas de point d'attache spécifié, utiliser le transform du joueur
         if (gunHolder == null)
         {
-            gunHolder = transform; // Utilise le Player comme parent
+            gunHolder = transform; // Attaché au joueur pour vue 3ème personne
         }
 
         // Créer un effet d'impact simple si nécessaire
@@ -81,6 +80,13 @@ public class Gun : MonoBehaviour
             CreateGunModel();
         }
 
+        // Enregistrer le modèle avec le visibility manager
+        visibilityManager = ItemVisibilityManager.Instance;
+        if (visibilityManager != null && gunModel != null)
+        {
+            visibilityManager.RegisterItemModel(ItemVisibilityManager.ItemType.Gun, gunModel);
+        }
+
         // Cacher le pistolet au départ
         if (gunModel != null)
         {
@@ -97,15 +103,6 @@ public class Gun : MonoBehaviour
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             TryShoot();
-        }
-
-        // Gérer la visibilité du pistolet (cacher après inactivité)
-        if (hasGun && gunModel != null)
-        {
-            if (Time.time - lastShotTime > gunHideDelay)
-            {
-                gunModel.SetActive(false);
-            }
         }
     }
 
@@ -163,12 +160,11 @@ public class Gun : MonoBehaviour
             return;
         }
 
-        // Afficher le pistolet et mettre à jour le timer
-        if (gunModel != null)
+        // Afficher le pistolet via le visibility manager
+        if (visibilityManager != null && gunModel != null)
         {
-            gunModel.SetActive(true);
+            visibilityManager.ShowItem(ItemVisibilityManager.ItemType.Gun);
         }
-        lastShotTime = Time.time;
 
         // Raycast depuis le centre de l'écran
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));

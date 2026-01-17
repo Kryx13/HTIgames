@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa266758d39052345b8fa26cc567a688, type: 3}
   m_Name: Data_pioche
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: pioche
-  description: 
+  itemName: Pioche
+  description: Permet de casser les murs fragiles 
   icon: {fileID: 0}
   prefab: {fileID: 0}
   isBackpack: 0

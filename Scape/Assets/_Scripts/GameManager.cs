@@ -68,7 +68,10 @@ public class GameManager : MonoBehaviour
 
     private void UpdateTimerUI()
     {
-        timerText.text = FormatTime(CurrentTime);
+        if (timerText != null)
+        {
+            timerText.text = FormatTime(CurrentTime);
+        }
     }
 
     public void TogglePause()
