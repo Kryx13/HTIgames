@@ -11,8 +11,8 @@ public class InputManager : MonoBehaviour
     public Vector2 LookInput { get; private set; }
     public bool JumpTriggered { get; private set; }
     public bool RunHeld { get; private set; }
-
     public bool InteractTriggered { get; private set; }
+    public bool PauseTriggered { get; private set; }
 
     private void Awake()
     {
@@ -75,6 +75,7 @@ public class InputManager : MonoBehaviour
         JumpTriggered = gameControls.Player.Jump.WasPressedThisFrame();
         RunHeld = gameControls.Player.Run.IsPressed();
         InteractTriggered = gameControls.Player.Interact.WasPressedThisFrame();
+        PauseTriggered = gameControls.Player.Pause.WasPressedThisFrame();
     }
 
     private void OnDestroy()
