@@ -2059,6 +2059,12 @@ MonoBehaviour:
   pauseMenuPanel: {fileID: 1932519848502918814}
   settingsPanel: {fileID: 3320360072646540932}
   leaderboardPanel: {fileID: 5058008802831991785}
+  resumeButton: {fileID: 293601311736527364}
+  settingsButton: {fileID: 3877932179093684285}
+  leaderboardButton: {fileID: 0}
+  restartButton: {fileID: 0}
+  quitToMenuButton: {fileID: 7651953444483297348}
+  quitGameButton: {fileID: 0}
 --- !u!1 &2049014457013138975
 GameObject:
   m_ObjectHideFlags: 0
@@ -4429,7 +4435,7 @@ GameObject:
   - component: {fileID: 8516483145609966530}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
