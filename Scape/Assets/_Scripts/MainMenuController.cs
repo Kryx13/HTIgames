@@ -35,7 +35,15 @@ public class MainMenuController : MonoBehaviour
 
     public void QuitGame()
     {
+        Debug.Log("🚪 Fermeture du jeu...");
+
+        // Ferme l'application (fonctionne uniquement une fois le jeu compilé/buildé)
         Application.Quit();
+
+        // Si on est dans l'éditeur Unity, on arrête le mode Play
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
     // Petite fonction utilitaire pour formater le temps (copié du GameManager)

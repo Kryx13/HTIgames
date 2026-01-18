@@ -46,12 +46,6 @@ public class EndGameUI : MonoBehaviour
             tryAgainButton.onClick.AddListener(OnTryAgainClicked);
         }
 
-        // Cacher le panel au départ
-        if (endGamePanel != null)
-        {
-            endGamePanel.SetActive(false);
-        }
-
         // Limite de caractères pour le nom
         if (nameInputField != null)
         {

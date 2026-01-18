@@ -103,7 +103,17 @@ public class LeaderboardManager : MonoBehaviour
         {
             string json = PlayerPrefs.GetString(LEADERBOARD_KEY);
             LeaderboardData data = JsonUtility.FromJson<LeaderboardData>(json);
-            entries = data.entries;
+            
+            // --- SÉCURITÉ AJOUTÉE ---
+            if (data != null && data.entries != null)
+            {
+                entries = data.entries;
+            }
+            else
+            {
+                entries = new List<LeaderboardEntry>();
+            }
+            // ------------------------
 
             Debug.Log($"📊 Leaderboard chargé ({entries.Count} entrées)");
         }
