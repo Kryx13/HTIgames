@@ -1,7 +1,3 @@
-Here is the rewritten README, tailored for a player-facing release (like a Steam store page or itch.io description). It focuses on the gameplay experience, the atmosphere, and the specific mechanics you mentioned (6 stages, speedrun focus, Amulet only).
-
----
-
 # 🏛️ Scape
 
 **Run. Solve. Escape.**
