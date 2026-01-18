@@ -37,16 +37,27 @@ public class PlayerController : MonoBehaviour
         input = InputManager.Instance;
         settings = SettingsManager.Instance;
         gameManager = GameManager.Instance;
-        mainCamera = Camera.main.transform;
+        mainCamera = Camera.main?.transform;
+
+        Debug.Log($"🎮 PlayerController.Start() - InputManager: {(input != null ? "OK" : "NULL")}, GameManager: {(gameManager != null ? "OK" : "NULL")}");
 
         // Verify essential components
         if (input == null)
         {
-            Debug.LogError("❌ InputManager not found in scene! Please create a GameObject with InputManager component.");
+            Debug.LogError("❌ InputManager not found! Searching in scene...");
+            input = FindObjectOfType<InputManager>();
+            if (input != null)
+            {
+                Debug.Log("✅ InputManager trouvé via FindObjectOfType");
+            }
         }
         if (controller == null)
         {
             Debug.LogError("❌ CharacterController component missing on Player!");
+        }
+        if (mainCamera == null)
+        {
+            Debug.LogWarning("⚠️ Main Camera not found!");
         }
 
         // Récupérer la sensibilité depuis les paramètres
@@ -66,8 +77,24 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Réessayer de trouver les références si elles sont null
+        if (input == null)
+        {
+            input = InputManager.Instance ?? FindObjectOfType<InputManager>();
+        }
+        if (gameManager == null)
+        {
+            gameManager = GameManager.Instance ?? FindObjectOfType<GameManager>();
+        }
+
         // Ne rien faire si le jeu est en pause OU terminé
         if (gameManager != null && (gameManager.IsPaused || gameManager.IsGameEnded))
+        {
+            return;
+        }
+
+        // Si toujours pas d'input, on ne peut pas bouger
+        if (input == null)
         {
             return;
         }

@@ -9,6 +9,11 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
+        // S'assurer que le curseur est visible et déverrouillé dans le menu
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 1f; // S'assurer que le jeu n'est pas en pause
+
         // 1. On vérifie si un score existe (La clé s'appelle "BestTime")
         if (PlayerPrefs.HasKey("BestTime"))
         {
@@ -19,6 +24,8 @@ public class MainMenuController : MonoBehaviour
         {
             bestTimeText.text = "Best Time: --:--";
         }
+
+        Debug.Log("🎮 Main Menu chargé - Curseur déverrouillé");
     }
 
     public void PlayGame()

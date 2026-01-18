@@ -42,6 +42,11 @@ public class FinalRoomBuilder : MonoBehaviour
     [SerializeField] private Material doorMaterial;
     [SerializeField] private Material slotMaterial;
 
+    [Header("Player & Camera Setup")]
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject playerFollowCameraPrefab;
+    [SerializeField] private bool setupCameraAutomatically = true;
+
     [Header("Debug")]
     [SerializeField] private bool showDebugLogs = true;
 
@@ -82,9 +87,77 @@ public class FinalRoomBuilder : MonoBehaviour
             BuildTorches();
         }
 
+        // Setup player and camera
+        if (setupCameraAutomatically)
+        {
+            SetupPlayerAndCamera();
+        }
+
         if (showDebugLogs)
         {
             Debug.Log("✅ Final Room built successfully!");
+        }
+    }
+
+    /// <summary>
+    /// Sets up the player and 3rd person camera
+    /// </summary>
+    private void SetupPlayerAndCamera()
+    {
+        // Check if player exists
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player == null && playerPrefab != null)
+        {
+            // Spawn player at spawn point
+            Vector3 playerSpawnPos = roomCenter + spawnPosition;
+            player = Instantiate(playerPrefab, playerSpawnPos, Quaternion.identity);
+            player.name = "Player";
+            if (showDebugLogs)
+                Debug.Log("  ✅ Player spawned at " + playerSpawnPos);
+        }
+        else if (player == null)
+        {
+            Debug.LogWarning("  ⚠️ No Player in scene and no Player Prefab assigned!");
+            Debug.LogWarning("     Assign the Player prefab in FinalRoomBuilder or add a Player to the scene.");
+        }
+
+        // Check if PlayerFollowCamera exists
+        GameObject followCam = GameObject.Find("PlayerFollowCamera");
+
+        if (followCam == null && playerFollowCameraPrefab != null)
+        {
+            // Create the camera
+            followCam = Instantiate(playerFollowCameraPrefab);
+            followCam.name = "PlayerFollowCamera";
+            if (showDebugLogs)
+                Debug.Log("  ✅ PlayerFollowCamera created");
+        }
+        else if (followCam == null)
+        {
+            Debug.LogWarning("  ⚠️ No PlayerFollowCamera in scene and no prefab assigned!");
+            Debug.LogWarning("     Add PlayerFollowCamera prefab from StarterAssets/ThirdPersonController/Prefabs/");
+        }
+
+        // Add camera setup script to ensure targets are connected
+        if (roomParent != null)
+        {
+            ThirdPersonCameraSetup cameraSetup = roomParent.GetComponent<ThirdPersonCameraSetup>();
+            if (cameraSetup == null)
+            {
+                cameraSetup = roomParent.AddComponent<ThirdPersonCameraSetup>();
+            }
+
+            // Assign the prefab reference if available
+            if (playerFollowCameraPrefab != null)
+            {
+                var prefabField = typeof(ThirdPersonCameraSetup).GetField("playerFollowCameraPrefab",
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                prefabField?.SetValue(cameraSetup, playerFollowCameraPrefab);
+            }
+
+            if (showDebugLogs)
+                Debug.Log("  ✅ ThirdPersonCameraSetup added for automatic camera configuration");
         }
     }
 

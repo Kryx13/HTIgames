@@ -33,10 +33,64 @@ public class LeaderboardUI : MonoBehaviour
             return;
         }
 
+        // Si pas de bouton retour assigné, en créer un automatiquement
+        if (backButton == null && autoCreateEntries)
+        {
+            CreateBackButton();
+        }
+
         if (backButton != null)
         {
             backButton.onClick.AddListener(OnBackClicked);
         }
+    }
+
+    /// <summary>
+    /// Crée automatiquement un bouton Retour
+    /// </summary>
+    private void CreateBackButton()
+    {
+        if (leaderboardPanel == null) return;
+
+        GameObject buttonObj = new GameObject("BackButton");
+        buttonObj.transform.SetParent(leaderboardPanel.transform);
+
+        // Image de fond du bouton
+        Image buttonImage = buttonObj.AddComponent<Image>();
+        buttonImage.color = new Color(0.2f, 0.2f, 0.2f, 0.9f);
+
+        // Composant Button
+        backButton = buttonObj.AddComponent<Button>();
+        ColorBlock colors = backButton.colors;
+        colors.highlightedColor = new Color(0.3f, 0.3f, 0.3f, 1f);
+        colors.pressedColor = new Color(0.1f, 0.1f, 0.1f, 1f);
+        backButton.colors = colors;
+
+        // Position en bas à gauche
+        RectTransform rect = buttonObj.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0, 0);
+        rect.anchorMax = new Vector2(0, 0);
+        rect.pivot = new Vector2(0, 0);
+        rect.anchoredPosition = new Vector2(20, 20);
+        rect.sizeDelta = new Vector2(120, 40);
+
+        // Texte du bouton
+        GameObject textObj = new GameObject("Text");
+        textObj.transform.SetParent(buttonObj.transform);
+
+        TextMeshProUGUI buttonText = textObj.AddComponent<TextMeshProUGUI>();
+        buttonText.text = "← Retour";
+        buttonText.fontSize = 20;
+        buttonText.alignment = TextAlignmentOptions.Center;
+        buttonText.color = Color.white;
+
+        RectTransform textRect = textObj.GetComponent<RectTransform>();
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.offsetMin = Vector2.zero;
+        textRect.offsetMax = Vector2.zero;
+
+        Debug.Log("✅ Bouton Retour créé automatiquement pour le Leaderboard");
     }
 
     /// <summary>

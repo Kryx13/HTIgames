@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
@@ -16,20 +17,44 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log($"🎮 InputManager.Awake() - Instance actuelle: {(Instance != null ? Instance.gameObject.name : "NULL")}");
+
         // Singleton pattern
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Optionnel : garde l'InputManager entre les scènes
+            DontDestroyOnLoad(gameObject);
+            Debug.Log($"✅ InputManager initialisé sur {gameObject.name} (DontDestroyOnLoad)");
         }
         else
         {
+            Debug.Log($"⚠️ InputManager déjà existant - destruction de {gameObject.name}");
             Destroy(gameObject);
             return;
         }
 
         // Initialisation des GameControls
         InitializeControls();
+
+        // S'abonner aux changements de scène pour réactiver les contrôles
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"🎮 InputManager.OnSceneLoaded - Scène: {scene.name}, Réactivation des contrôles...");
+
+        // Réactiver les contrôles après chargement de scène
+        if (gameControls != null)
+        {
+            gameControls.Player.Enable();
+            Debug.Log("✅ Contrôles réactivés");
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ gameControls est null, réinitialisation...");
+            InitializeControls();
+        }
     }
 
     private void InitializeControls()
@@ -80,6 +105,8 @@ public class InputManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+
         if (gameControls != null)
         {
             gameControls.Dispose();

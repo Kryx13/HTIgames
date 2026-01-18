@@ -64,6 +64,7 @@ MonoBehaviour:
   endGameUI: {fileID: 0}
   autoStart: 1
   pauseMenuObject: {fileID: 0}
+  canvasPrefab: {fileID: 5160693370875667693, guid: b88cfd8b676d72844812a8ada89e39d5, type: 3}
 --- !u!114 &4308821062644333467
 MonoBehaviour:
   m_ObjectHideFlags: 0

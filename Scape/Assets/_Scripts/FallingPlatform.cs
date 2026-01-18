@@ -299,14 +299,4 @@ public class FallingPlatform : MonoBehaviour
         Gizmos.DrawWireCube(startPos, transform.localScale);
     }
 
-     private void OnTriggerEnter(Collider other)
-  {
-      Debug.Log($"Trigger hit by: {other.name} with tag: {other.tag}");
-
-      if (other.CompareTag("Player") && !isFalling)
-      {
-          Debug.Log("PLAYER DETECTED - Starting fall!");
-          StartCoroutine(FallSequence());
-      }
-  }
 }
