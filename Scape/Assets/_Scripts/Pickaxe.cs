@@ -37,6 +37,7 @@ public class Pickaxe : MonoBehaviour
     private float nextHitTime = 0f;
     private bool hasPickaxe = false;
     private ItemVisibilityManager visibilityManager;
+    private GameManager gameManager;
     private bool isSwinging = false;
     private Quaternion restRotation;
     private Quaternion swingRotation;
@@ -73,6 +74,9 @@ public class Pickaxe : MonoBehaviour
             visibilityManager.RegisterItemModel(ItemVisibilityManager.ItemType.Pickaxe, pickaxeModel);
         }
 
+        // Récupérer le GameManager
+        gameManager = GameManager.Instance;
+
         // Sauvegarder les rotations pour l'animation
         if (pickaxeModel != null)
         {
@@ -90,6 +94,12 @@ public class Pickaxe : MonoBehaviour
 
     private void Update()
     {
+        // Ne rien faire si le jeu est en pause ou terminé
+        if (gameManager != null && (gameManager.IsPaused || gameManager.IsGameEnded))
+        {
+            return;
+        }
+
         // Vérifier si le joueur possède la pioche
         CheckForPickaxe();
 

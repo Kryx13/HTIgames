@@ -11,13 +11,15 @@ public class PlayerController : MonoBehaviour
 
     [Header("Caméra (Souris)")]
     [SerializeField] private Transform cameraRoot; // L'objet vide qu'on a créé sur le joueur
-    [SerializeField] private float mouseSensitivity = 1f;
     [SerializeField] private float topClamp = -40f; // Limite haut
     [SerializeField] private float bottomClamp = 70f; // Limite bas
 
     private CharacterController controller;
     private InputManager input;
+    private SettingsManager settings;
+    private GameManager gameManager;
     private Transform mainCamera;
+    private float currentSensitivity = 2f; // Valeur par défaut si SettingsManager absent
     
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -33,10 +35,18 @@ public class PlayerController : MonoBehaviour
         // Récupération des références
         controller = GetComponent<CharacterController>();
         input = InputManager.Instance;
+        settings = SettingsManager.Instance;
+        gameManager = GameManager.Instance;
         mainCamera = Camera.main.transform;
 
+        // Récupérer la sensibilité depuis les paramètres
+        if (settings != null)
+        {
+            currentSensitivity = settings.MouseSensitivity;
+        }
+
         // Si tu as oublié d'assigner le CameraRoot dans l'inspecteur, on cherche un enfant
-        if (cameraRoot == null) 
+        if (cameraRoot == null)
             cameraRoot = transform.Find("CameraRoot");
 
         // Cache la souris
@@ -46,6 +56,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Ne rien faire si le jeu est en pause OU terminé
+        if (gameManager != null && (gameManager.IsPaused || gameManager.IsGameEnded))
+        {
+            return;
+        }
+
         // 1. Rotation de la caméra (Souris)
         HandleCameraRotation();
 
@@ -55,12 +71,18 @@ public class PlayerController : MonoBehaviour
 
     private void HandleCameraRotation()
     {
+        // Récupérer la sensibilité actuelle depuis les paramètres
+        if (settings != null)
+        {
+            currentSensitivity = settings.MouseSensitivity;
+        }
+
         // On vérifie que l'input existe (si la souris bouge)
         if (input.LookInput.sqrMagnitude >= 0.01f)
         {
-            // On multiplie par la sensibilité
-            cinemachineTargetYaw += input.LookInput.x * mouseSensitivity;
-            cinemachineTargetPitch += input.LookInput.y * mouseSensitivity;
+            // On multiplie par la sensibilité (maintenant dynamique)
+            cinemachineTargetYaw += input.LookInput.x * currentSensitivity;
+            cinemachineTargetPitch += input.LookInput.y * currentSensitivity;
             // Note : Si c'est inversé haut/bas, mets un "-" devant input.LookInput.y
         }
 

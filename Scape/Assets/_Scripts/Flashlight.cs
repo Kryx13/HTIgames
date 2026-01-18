@@ -37,6 +37,7 @@ public class Flashlight : MonoBehaviour
     private bool isOn = false;
     private bool hasFlashlight = false;
     private ItemVisibilityManager visibilityManager;
+    private GameManager gameManager;
     private float baseIntensity;
 
     private void Start()
@@ -86,6 +87,9 @@ public class Flashlight : MonoBehaviour
             visibilityManager.RegisterItemModel(ItemVisibilityManager.ItemType.Flashlight, flashlightModel);
         }
 
+        // Récupérer le GameManager
+        gameManager = GameManager.Instance;
+
         // Sauvegarder l'intensité de base pour l'animation
         if (flashlightComponent != null)
         {
@@ -102,6 +106,12 @@ public class Flashlight : MonoBehaviour
 
     private void Update()
     {
+        // Ne rien faire si le jeu est en pause ou terminé
+        if (gameManager != null && (gameManager.IsPaused || gameManager.IsGameEnded))
+        {
+            return;
+        }
+
         // Vérifier si le joueur possède la lampe dans l'inventaire
         CheckForFlashlight();
 

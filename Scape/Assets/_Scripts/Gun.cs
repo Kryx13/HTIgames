@@ -42,6 +42,7 @@ public class Gun : MonoBehaviour
     private LineRenderer bulletTrailRenderer;
     private Transform barrelTip; // Point de sortie de la balle (bout du canon)
     private ItemVisibilityManager visibilityManager;
+    private GameManager gameManager;
 
     private void Start()
     {
@@ -87,6 +88,9 @@ public class Gun : MonoBehaviour
             visibilityManager.RegisterItemModel(ItemVisibilityManager.ItemType.Gun, gunModel);
         }
 
+        // Récupérer le GameManager
+        gameManager = GameManager.Instance;
+
         // Cacher le pistolet au départ
         if (gunModel != null)
         {
@@ -96,6 +100,12 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
+        // Ne rien faire si le jeu est en pause ou terminé
+        if (gameManager != null && (gameManager.IsPaused || gameManager.IsGameEnded))
+        {
+            return;
+        }
+
         // Vérifier si le joueur possède le pistolet
         CheckForGun();
 
