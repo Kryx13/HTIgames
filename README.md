@@ -149,34 +149,116 @@ The game natively supports both QWERTY and AZERTY layouts.
 - [x] 3rd Person Camera (Cinemachine)
 - [x] Input System (InputManager + GameControls)
 
-### 🟢 Phase 2: Systems (COMPLETED)
-- [x] Interaction System (Automatic trigger-based pickup)
-- [x] Inventory System (2 slots + backpack extension)
-- [x] Item Data (ScriptableObjects)
-- [x] Item Pickup System (OnTriggerEnter)
-- [x] Item: Sac (Backpack +3 slots with visual)
-- [x] Item: Lampe (Spotlight toggle with F key)
-- [x] Item: Pistolet (Raycast shooting, Left Click)
-- [x] Item: Pioche (Destructible walls, Right Click)
-- [x] Push mechanics (BasicRigidBodyPush + PushableObject)
+### 🟢 Phase 2: Core Systems (COMPLETED ✅)
+- [x] **Interaction System** (Automatic trigger-based pickup)
+- [x] **Inventory System** (2 slots + backpack extension to 5)
+- [x] **Item Data** (ScriptableObjects for all items)
+- [x] **Item Pickup System** (OnTriggerEnter with auto-detection)
+- [x] **Item Drop System** (G key - spawns items in world)
+- [x] **Item: Sac** (Backpack +3 slots with 3D visual model)
+- [x] **Item: Lampe** (Flashlight toggle with F key, spotlight + visual model)
+- [x] **Item: Pistolet** (Raycast shooting, Left Click, bullet trails, impact effects)
+- [x] **Item: Pioche** (Destructible walls, Right Click, swing animation)
+- [x] **Push Mechanics** (BasicRigidBodyPush + PushableObject auto-setup)
+- [x] **GameManager** (Singleton with timer, pause, game state management)
+- [x] **SettingsManager** (Mouse sensitivity, volume, quality settings with PlayerPrefs)
+- [x] **LeaderboardManager** (Top 10 scores with JSON persistence)
+- [x] **ItemVisibilityManager** (Show/hide equipped item models)
+- [x] **UI: Main Menu** (Play, Settings, Leaderboard, Credits, Quit)
+- [x] **UI: Pause Menu** (Resume, Restart, Settings, Quit - with input blocking)
+- [x] **UI: Settings Panel** (Sliders for sensitivity/volume, quality dropdown)
+- [x] **UI: Leaderboard Panel** (Display top 10 with names and times)
+- [x] **UI: EndGame Screen** (Final time, name input, top score detection, restart/menu options)
+- [x] **EndGameTrigger** (Win zone collision detection)
+- [x] **Input Blocking** (All inputs blocked during pause and game end states)
+- [x] **Targets System** (Shootable targets with health, events, visual feedback)
+- [x] **Moving Targets** (Horizontal, vertical, and random movement patterns)
+- [x] **Destructible Walls** (Health system, visual feedback, pickaxe interaction)
 
-### 🔴 Phase 3: Stages
-- [ ] Stage 0: Tutorial room
-- [ ] Stage 1: Falling platforms (timer + reset)
-- [ ] Stage 2: Door maze (5 rooms logic)
-- [ ] Stage 3: Shooting gallery (target AI)
-- [ ] Stage 4: Riddle + stele
-- [ ] Stage 5: Maze + destructible blocks
-- [ ] Stage 6: Darkness navigation
-- [ ] Stage 7: Amulette finale
+### 🟡 Phase 3: Level Design & Stages (37.5% Complete 🚧)
+- [x] **Stage 0: Tutorial Room** ✅
+  - [x] TutorialSign.cs - Billboard world-space text
+  - [x] DoorTrigger.cs - Scene/teleport/visual doors
+  - [x] SpawnPoint.cs - Player spawn system
+  - [x] KillZone.cs - Respawn zones
+  - [x] StageBuilder.cs - Quick room generation
+  - [x] Setup guide: `STAGE_0_SETUP.md`
 
-### 🟣 Phase 4: Polish
-- [ ] Main Menu & Pause Menu
-- [ ] Timer system (global)
-- [ ] Leaderboard (save/load)
-- [ ] Sound Design & Music
-- [ ] Lighting & Atmosphere (URP)
-- [ ] Playtesting & Balancing
+- [x] **Stage 1: Falling Platforms** ✅
+  - [x] FallingPlatform.cs - Timed fall with countdown
+  - [x] 3-second timer with visual feedback
+  - [x] Fall respawn to Stage 0 (KillZone)
+  - [x] Platform auto-reset after 5 seconds
+  - [x] Setup guide: `STAGE_1_SETUP.md`
+
+- [ ] **Stage 2: Door Maze (5 Rooms)**
+  - [ ] 5 identical room layouts
+  - [ ] Door teleportation logic between rooms
+  - [ ] Room number UI indicator
+  - [ ] Pistolet placement in Room 5
+  - [ ] Exit door to Stage 3 (from Room 4)
+
+- [ ] **Stage 3: Shooting Gallery**
+  - [ ] 5 target sequences (MovingTarget script ready ✅)
+  - [ ] Platform activation on target destroy
+  - [ ] Progressive difficulty (static → random movement)
+  - [ ] Exit door to Stage 4
+
+- [ ] **Stage 4: Riddle Room**
+  - [ ] Room with multiple objects
+  - [ ] Riddle inscription (TextMeshPro)
+  - [ ] Stele with trigger (correct item detection)
+  - [ ] Door opening logic
+
+- [x] **Stage 5: Destructible Maze** ✅
+  - [x] MazeBuilder.cs - Generates 5×20 maze
+  - [x] MapDisplay.cs - Wall-mounted map texture
+  - [x] Destructible/solid wall system (DestructibleWall ✅)
+  - [x] Auto-placement: Sac, Pioche, Lampe
+  - [x] Hidden Lampe in breakable block
+  - [x] Map visual (green = path, black = wall)
+  - [x] Setup guide: `STAGE_5_SETUP.md`
+
+- [ ] **Stage 6: Darkness Zone**
+  - [ ] Total darkness (no lights)
+  - [ ] Floor with holes (KillZone ✅)
+  - [ ] Narrow safe path navigation
+  - [ ] Flashlight requirement check
+
+- [ ] **Stage 7: Final Room**
+  - [ ] Empty room with door
+  - [ ] Amulette slot on door (DoorTrigger with requireItem ✅)
+  - [ ] Inscription hint (TutorialSign ✅)
+  - [ ] Door opening to EndGameZone
+
+- [x] **Win Zone** ✅
+  - [x] EndGameTrigger placement (already functional from Phase 2)
+
+### 🟣 Phase 4: Polish & Finalization
+- [x] **Main Menu & Pause Menu** ✅ (Fully functional with all buttons)
+- [x] **Timer system (global)** ✅ (GameManager tracks time, TimerUI displays)
+- [x] **Leaderboard (save/load)** ✅ (Top 10 with JSON persistence)
+- [x] **End Game screen** ✅ (Time display, name input, save score, restart/quit)
+- [ ] **Sound Design & Music**
+  - [ ] Footsteps, jump, land SFX
+  - [ ] Item pickup sounds
+  - [ ] Gun shot, pickaxe hit, flashlight toggle
+  - [ ] UI button clicks
+  - [ ] Ambient music (dark atmosphere)
+  - [ ] Victory jingle
+- [ ] **Lighting & Atmosphere (URP)**
+  - [ ] Global Volume post-processing
+  - [ ] Shadows and lighting per stage
+  - [ ] Darkness zones (Stage 6)
+  - [ ] Particle effects (dust, torch flames)
+- [ ] **Playtesting & Balancing**
+  - [ ] Difficulty tuning (platform timers, target speeds)
+  - [ ] Player movement feel
+  - [ ] Checkpoint system (optional)
+- [ ] **Build & Deployment**
+  - [ ] Windows standalone build
+  - [ ] Performance optimization
+  - [ ] Bug fixes
 
 ---
 
@@ -197,68 +279,190 @@ Assets/
 └── _Scripts/
     ├── GameControls.cs                # Auto-generated Input Actions wrapper
     ├── GameControls.inputactions      # Input Action Asset (WASD, Jump, Shoot, Pickaxe, etc.)
-    ├── IInteractable.cs               # Interface for interactive objects (doors, levers)
-    ├── InputManager.cs                # Singleton handling all inputs
-    ├── Interactor.cs                  # (Legacy) Raycast system - kept for future use
-    ├── Inventory.cs                   # Player inventory (slots, add/remove, backpack)
-    ├── ItemData.cs                    # ScriptableObject definition for items
-    ├── ItemDropper.cs                 # Drop system (G key) - spawns items in world
+    │
+    ├── ──── MANAGERS ────
+    ├── GameManager.cs                 # Singleton - timer, pause, game states, scene transitions
+    ├── InputManager.cs                # Singleton - centralized input handling
+    ├── SettingsManager.cs             # Singleton - settings with PlayerPrefs persistence
+    ├── LeaderboardManager.cs          # Singleton - top 10 scores with JSON save/load
+    ├── ItemVisibilityManager.cs       # Singleton - show/hide equipped item models
+    │
+    ├── ──── PLAYER ────
+    ├── PlayerController.cs            # Movement, jump, run, camera rotation (input blocking)
+    ├── Inventory.cs                   # Inventory system (2-5 slots, add/remove, backpack)
+    ├── PlayerPushSetup.cs             # Auto-setup player push capability
+    ├── PlayerSetupChecker.cs          # Debug tool - validates player configuration
+    │
+    ├── ──── ITEMS & INTERACTION ────
+    ├── ItemData.cs                    # ScriptableObject - item definitions
     ├── ItemPickup.cs                  # Automatic pickup via OnTriggerEnter
-    ├── InteractionSystemHelper.cs     # Auto-configure pickup objects
-    ├── BackpackVisual.cs              # Visual backpack on player when equipped
-    ├── Flashlight.cs                  # Flashlight system (F key toggle, spotlight)
-    ├── Gun.cs                         # Gun system (Left Click, raycast shooting)
-    ├── Pickaxe.cs                     # Pickaxe system (Right Click, break walls)
-    ├── Target.cs                      # Shootable targets with health and events
-    ├── MovingTarget.cs                # Moving targets with different patterns
-    ├── DestructibleWall.cs            # Breakable walls for pickaxe
+    ├── ItemDropper.cs                 # Drop system (G key) - spawns items in world
+    ├── InteractionSystemHelper.cs     # Auto-configure pickup objects (collider, trigger)
+    ├── BackpackVisual.cs              # Visual backpack model on player
+    ├── Flashlight.cs                  # Flashlight system (F key, spotlight, visual model)
+    ├── Gun.cs                         # Gun system (Left Click, raycast, bullet trail, effects)
+    ├── Pickaxe.cs                     # Pickaxe system (Right Click, break walls, swing animation)
+    ├── IInteractable.cs               # Interface for interactive objects (doors, levers)
+    ├── Interactor.cs                  # (Legacy) Raycast system - kept for future use
+    │
+    ├── ──── OBJECTS & WORLD ────
+    ├── Target.cs                      # Shootable targets with health, events, feedback
+    ├── MovingTarget.cs                # Moving targets (horizontal, vertical, random patterns)
+    ├── DestructibleWall.cs            # Breakable walls for pickaxe with health system
     ├── PushableObject.cs              # Auto-configure pushable objects (Rigidbody)
-    ├── PlayerPushSetup.cs             # Setup player push system
-    ├── PlayerController.cs            # Movement, jump, camera rotation
-    └── PlayerSetupChecker.cs          # Debug tool - validates player config
+    ├── FallingPlatform.cs             # Timed falling platforms with shake & countdown
+    ├── EndGameTrigger.cs              # Win zone collision detection
+    │
+    ├── ──── STAGE SYSTEMS ────
+    ├── TutorialSign.cs                # Billboard world-space text signs (Stage 0)
+    ├── DoorTrigger.cs                 # Multi-purpose doors (scene, teleport, visual)
+    ├── SpawnPoint.cs                  # Player spawn locations with gizmos
+    ├── KillZone.cs                    # Respawn zones for falls/deaths
+    ├── StageBuilder.cs                # Quick room generation tool
+    ├── MazeBuilder.cs                 # 5×20 destructible maze generator (Stage 5)
+    ├── MapDisplay.cs                  # Wall-mounted map texture (Stage 5)
+    │
+    ├── ──── UI ────
+    ├── MainMenuUI.cs                  # Main menu button handlers (Play, Settings, Leaderboard, Quit)
+    ├── PauseMenuController.cs         # Pause menu handlers (Resume, Restart, Settings, Quit)
+    ├── SettingsUI.cs                  # Settings panel (sensitivity, volume, quality)
+    ├── LeaderboardUI.cs               # Leaderboard display (top 10 entries)
+    ├── EndGameUI.cs                   # End game screen (time, name input, save, buttons)
+    └── TimerUI.cs                     # Timer display during gameplay
 ```
 
 ---
 
 ## 🧩 Key Interfaces & Classes
 
-| Class/Interface | Role |
+### 🎮 Managers (Singletons)
+| Class | Role |
 | :--- | :--- |
-| `InputManager` | Singleton — centralized input reading |
-| `PlayerController` | Handles movement, jump, camera with CharacterController |
-| `Inventory` | Manages item list, max slots, backpack expansion |
-| `ItemData` | ScriptableObject — item properties (name, icon, isBackpack) |
-| `ItemPickup` | MonoBehaviour — automatic pickup via OnTriggerEnter |
-| `ItemDropper` | Drops last inventory item in front of player (G key) |
-| `BackpackVisual` | Displays backpack model on player when equipped |
-| `Flashlight` | Toggles spotlight with F key (requires Lampe item) |
-| `Gun` | Shooting system with Left Click (requires Pistolet item) |
-| `Pickaxe` | Break destructible walls with Right Click (requires Pioche item) |
+| `GameManager` | Central game state, timer, pause, scene transitions, game end |
+| `InputManager` | Centralized input reading (Move, Look, Jump, Run, etc.) |
+| `SettingsManager` | Settings persistence (sensitivity, volume, quality) |
+| `LeaderboardManager` | Top 10 score tracking with JSON save/load |
+| `ItemVisibilityManager` | Show/hide equipped item models (Gun, Pickaxe, Flashlight) |
+
+### 👤 Player & Movement
+| Class | Role |
+| :--- | :--- |
+| `PlayerController` | Movement, jump, run, camera with CharacterController (input blocking) |
+| `Inventory` | Item storage (2-5 slots), add/remove, backpack expansion |
+| `PlayerPushSetup` | Configures player push capability (BasicRigidBodyPush) |
+
+### 🎒 Items & Interaction
+| Class | Role |
+| :--- | :--- |
+| `ItemData` | ScriptableObject — item properties (name, icon, type) |
+| `ItemPickup` | Automatic pickup via OnTriggerEnter |
+| `ItemDropper` | Drop last item in front of player (G key) |
+| `BackpackVisual` | Displays backpack 3D model on player when equipped |
+| `Flashlight` | Spotlight toggle with F key (requires Lampe) |
+| `Gun` | Raycast shooting with Left Click (requires Pistolet) |
+| `Pickaxe` | Break destructible walls with Right Click (requires Pioche) |
+| `InteractionSystemHelper` | Auto-configure pickup objects (collider, trigger, layer) |
+
+### 🌍 World Objects
+| Class | Role |
+| :--- | :--- |
 | `Target` | Shootable targets with health, events, visual feedback |
 | `MovingTarget` | Targets with movement patterns (horizontal, vertical, random) |
-| `DestructibleWall` | Breakable walls with health, visual feedback, events |
+| `DestructibleWall` | Breakable walls with health system for pickaxe |
 | `PushableObject` | Auto-configures pushable objects with Rigidbody |
-| `PlayerPushSetup` | Configures player to push objects (BasicRigidBodyPush) |
-| `InteractionSystemHelper` | Auto-configures pickups (collider, trigger, layer) |
-| `IInteractable` | *(Optional)* Interface for future interactive objects (doors, levers) |
+| `FallingPlatform` | Timed falling platforms (Stage 1) |
+| `EndGameTrigger` | Win zone collision detection (triggers LevelComplete) |
+
+### 🖼️ UI Systems
+| Class | Role |
+| :--- | :--- |
+| `MainMenuUI` | Main menu button handlers (Play, Settings, Leaderboard, Quit) |
+| `PauseMenuController` | Pause menu handlers (Resume, Restart, Settings, Quit) |
+| `SettingsUI` | Settings panel (sensitivity slider, volume, quality dropdown) |
+| `LeaderboardUI` | Leaderboard display (top 10 entries with names and times) |
+| `EndGameUI` | End game screen (final time, name input, save score, buttons) |
+| `TimerUI` | Real-time timer display during gameplay |
+
+### 🔌 Interfaces
+| Interface | Role |
+| :--- | :--- |
+| `IInteractable` | *(Future)* Interface for interactive objects (doors, levers, switches) |
 
 ---
 
-## 📦 Scene Hierarchy (SampleScene)
+## 📦 Scene Hierarchy
 
+### Main Menu (Scene 0)
 ```
-SampleScene
+MainMenu
+├── Main Camera
+├── Directional Light
+├── Canvas (Screen Space - Overlay)
+│   ├── MainMenuPanel
+│   │   ├── Title (TextMeshPro)
+│   │   ├── PlayButton
+│   │   ├── SettingsButton
+│   │   ├── LeaderboardButton
+│   │   ├── CreditsButton
+│   │   └── QuitButton
+│   ├── SettingsPanel (initially hidden)
+│   │   ├── SensitivitySlider
+│   │   ├── VolumeSlider
+│   │   ├── QualityDropdown
+│   │   ├── ApplyButton
+│   │   └── BackButton
+│   ├── LeaderboardPanel (initially hidden)
+│   │   ├── Title
+│   │   ├── EntryList (10 entries)
+│   │   └── BackButton
+│   └── CreditsPanel (initially hidden)
+│       └── BackButton
+├── GameManager (MainMenuUI, SettingsManager, LeaderboardManager)
+└── EventSystem
+```
+
+### Game Scene (Scene 1)
+```
+GameScene
 ├── Main Camera          # CinemachineBrain + URP Camera
 ├── Virtual Camera       # Cinemachine 3rd Person Follow → CameraRoot
 ├── Directional Light
 ├── Global Volume        # URP Post-processing
-├── Player               # Layer: 3 | CharacterController, PlayerController, Inventory, Interactor
-│   └── CameraRoot       # Cinemachine Follow/LookAt target
-├── GameManager          # InputManager singleton
-├── Floor                # MeshCollider
-├── Canvas               # Screen Space Overlay
-│   └── Image            # Crosshair (10x10 centered)
+├── Player               # Layer: 3 | CharacterController, PlayerController, Inventory
+│   ├── CameraRoot       # Cinemachine Follow/LookAt target
+│   ├── Flashlight (child of CameraRoot - spotlight)
+│   ├── GunModel (child of Player)
+│   ├── PickaxeModel (child of Player)
+│   ├── FlashlightModel (child of Player)
+│   └── BackpackModel (child of Player)
+│
+├── GameManager          # GameManager, InputManager, SettingsManager, LeaderboardManager, ItemVisibilityManager
+│
+├── Canvas (Screen Space - Overlay)
+│   ├── Crosshair (Image - centered)
+│   ├── TimerUI (TextMeshPro - top center)
+│   ├── InventoryUI (Panel - top left)
+│   ├── PauseMenuPanel (initially hidden)
+│   │   ├── ResumeButton
+│   │   ├── RestartButton
+│   │   ├── SettingsButton
+│   │   └── QuitButton
+│   ├── SettingsPanel (initially hidden)
+│   │   ├── Sliders & Dropdowns
+│   │   ├── ApplyButton
+│   │   └── BackButton
+│   └── EndGamePanel (initially hidden)
+│       ├── FinalTimeText
+│       ├── CongratsText
+│       ├── NameInputField
+│       ├── SubmitButton
+│       ├── SkipButton
+│       └── TryAgainButton
+│
 ├── EventSystem          # InputSystemUIInputModule
+├── Floor                # MeshCollider
+├── EndGameZone          # EndGameTrigger (OnTriggerEnter)
+│
 └── Pickups (Layer: 6 - Interactable)
     ├── Pickup_amulette  # SphereCollider (trigger)
     ├── Pickup_sac       # BoxCollider (trigger)
