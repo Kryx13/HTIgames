@@ -41,6 +41,28 @@ I tried to ignore a compilation error to work on a different script, but Unity s
 
 ### Git & Range Refinements
 
-On a positive note, the Git file-locking issue from Phase 1 resolved itself. It appears the "close Unity to commit" requirement was a one-time bug related to the initial `.gitignore` setup; I can now commit freely while the editor is open.
+On a positive note, the Git file-locking issNoue from Phase 1 resolved itself. It appears the "close Unity to commit" requirement was a one-time bug related to the initial `.gitignore` setup; I can now commit freely while the editor is open.
 
 Finally, I spent a lot of time tweaking interaction ranges. I found that if the range is too strict, the game feels unresponsive. The lesson here was to be generous with collision sizes and interaction distances to ensure the game feels good to play, rather than mathematically perfect.
+
+
+
+---------------------------
+
+📝 Phase 3
+Topic: Scope Management & Final Polish
+
+The "Frankenstein" Asset Struggle
+My original plan relied on collaborating with a friend skilled in 3D modeling, but due to unexpected changes, I had to proceed solo. This forced me to rely on free assets from the store, which created a massive consistency problem.
+
+It was impossible to find visual continuity between the different packs; the game looked like a "Frankenstein" project, and worse, the scripts included in these assets conflicted with my own code. Due to the strict time constraints, I made the hard decision to cut them entirely. This taught me that relying on external assets requires as much integration time as building them from scratch.
+
+The Ambition Trap (Pivoting to Escape)
+I lost a significant amount of time early on trying to craft a complex story, deep mechanics, and a polished look. I realized too late that my initial concept was simply too ambitious for the timeframe.
+
+To save the project, I had to drastically scale down. I abandoned the narrative heavy-lifting and pivoted to a straightforward Escape Game. This shift allowed me to focus on a singular, functional gameplay loop rather than a broken, sprawling RPG.
+
+The "Missing Reference" Headache
+In the final stretch, I ran into a persistent issue with Prefabs. Buttons and interactions I had previously set up suddenly stopped working because their references in the Inspector had turned to "Missing" (likely due to script changes or moving files).
+
+Fixing this manually was confusing, so I adopted a new workflow: I cross-referenced my development blog/logs and fed the specific error context to an AI. By explaining the broken logic to the AI, I was able to quickly identify exactly which links had broken in the Inspector and re-assign the correct scripts without rewriting the whole system.
