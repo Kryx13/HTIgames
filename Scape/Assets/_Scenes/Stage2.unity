@@ -757,7 +757,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5289077551647969347, guid: 568b32f79fcb8424089285b2924251cd, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5289077551647969347, guid: 568b32f79fcb8424089285b2924251cd, type: 3}
       propertyPath: m_LocalRotation.x
@@ -765,7 +765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5289077551647969347, guid: 568b32f79fcb8424089285b2924251cd, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5289077551647969347, guid: 568b32f79fcb8424089285b2924251cd, type: 3}
       propertyPath: m_LocalRotation.z
@@ -777,7 +777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5289077551647969347, guid: 568b32f79fcb8424089285b2924251cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 5289077551647969347, guid: 568b32f79fcb8424089285b2924251cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -794,7 +794,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3225061022737591016, guid: 568b32f79fcb8424089285b2924251cd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 568b32f79fcb8424089285b2924251cd, type: 3}
 --- !u!21 &382249367
 Material:
@@ -2368,7 +2371,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3225061022737591016, guid: 568b32f79fcb8424089285b2924251cd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 568b32f79fcb8424089285b2924251cd, type: 3}
 --- !u!1001 &1272416799
 PrefabInstance:
