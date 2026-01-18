@@ -39,6 +39,16 @@ public class PlayerController : MonoBehaviour
         gameManager = GameManager.Instance;
         mainCamera = Camera.main.transform;
 
+        // Verify essential components
+        if (input == null)
+        {
+            Debug.LogError("❌ InputManager not found in scene! Please create a GameObject with InputManager component.");
+        }
+        if (controller == null)
+        {
+            Debug.LogError("❌ CharacterController component missing on Player!");
+        }
+
         // Récupérer la sensibilité depuis les paramètres
         if (settings != null)
         {
@@ -71,6 +81,12 @@ public class PlayerController : MonoBehaviour
 
     private void HandleCameraRotation()
     {
+        // Check if input manager exists
+        if (input == null)
+        {
+            return;
+        }
+
         // Récupérer la sensibilité actuelle depuis les paramètres
         if (settings != null)
         {
@@ -96,6 +112,12 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
+        // Check if input manager exists
+        if (input == null)
+        {
+            return;
+        }
+
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {

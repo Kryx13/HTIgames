@@ -99,7 +99,7 @@ public class SpawnPoint : MonoBehaviour
     /// </summary>
     public static SpawnPoint FindSpawnByID(string id)
     {
-        SpawnPoint[] spawns = FindObjectsOfType<SpawnPoint>();
+        SpawnPoint[] spawns = FindObjectsByType<SpawnPoint>(FindObjectsSortMode.None);
         foreach (SpawnPoint spawn in spawns)
         {
             if (spawn.spawnID == id)

@@ -8,7 +8,9 @@ using UnityEngine.Events;
 public class TargetSequence : MonoBehaviour
 {
     [Header("Sequence Settings")]
+#pragma warning disable 0414 // Field assigned but never used (useful for debugging/identification)
     [SerializeField] private int sequenceNumber = 1;
+#pragma warning restore 0414
     [SerializeField] private string sequenceName = "Sequence 1";
     [SerializeField] private Target[] targets; // All targets in this sequence
 

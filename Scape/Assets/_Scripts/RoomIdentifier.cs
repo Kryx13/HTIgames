@@ -77,7 +77,7 @@ public class RoomIdentifier : MonoBehaviour
         }
 
         // Notify UI
-        RoomNumberUI ui = FindObjectOfType<RoomNumberUI>();
+        RoomNumberUI ui = FindFirstObjectByType<RoomNumberUI>();
         if (ui != null)
         {
             ui.UpdateRoomNumber(roomNumber, roomName);

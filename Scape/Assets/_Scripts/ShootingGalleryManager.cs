@@ -14,7 +14,9 @@ public class ShootingGalleryManager : MonoBehaviour
     [SerializeField] private bool deactivateExitOnStart = true;
 
     [Header("UI")]
+#pragma warning disable 0414 // Field assigned but never used (reserved for future progress UI)
     [SerializeField] private bool showProgressUI = true;
+#pragma warning restore 0414
 
     [Header("Audio")]
     [SerializeField] private AudioClip galleryCompleteSound;

@@ -97,7 +97,7 @@ public class RoomNumberUI : MonoBehaviour
     private void CreateRoomUI()
     {
         // Find or create Canvas
-        Canvas canvas = FindObjectOfType<Canvas>();
+        Canvas canvas = FindFirstObjectByType<Canvas>();
         if (canvas == null)
         {
             Debug.LogWarning("⚠️ No Canvas found in scene. Cannot create Room UI.");

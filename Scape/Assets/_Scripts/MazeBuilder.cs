@@ -99,7 +99,7 @@ public class MazeBuilder : MonoBehaviour
 
             // Add DestructibleWall script
             DestructibleWall destructibleWall = block.AddComponent<DestructibleWall>();
-            destructibleWall.maxHealth = 3; // 3 pickaxe hits
+            // Note: maxHealth is set via SerializeField, default is 3 hits
         }
         else
         {

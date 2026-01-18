@@ -55,7 +55,7 @@ public class EndGameDiagnostic : MonoBehaviour
         }
 
         // 2. Chercher EndGameUI dans la scène
-        EndGameUI[] endGameUIs = FindObjectsOfType<EndGameUI>(true); // true = inclure les objets désactivés
+        EndGameUI[] endGameUIs = FindObjectsByType<EndGameUI>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
         Debug.Log($"\n📊 {endGameUIs.Length} EndGameUI trouvé(s) dans la scène:");
 
@@ -80,7 +80,7 @@ public class EndGameDiagnostic : MonoBehaviour
         }
 
         // 3. Chercher EndGameTrigger
-        EndGameTrigger[] triggers = FindObjectsOfType<EndGameTrigger>(true);
+        EndGameTrigger[] triggers = FindObjectsByType<EndGameTrigger>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
         Debug.Log($"\n🎯 {triggers.Length} EndGameTrigger trouvé(s) dans la scène:");
 

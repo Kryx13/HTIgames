@@ -127,7 +127,7 @@ public class InteractionDiagnostic : MonoBehaviour
 
         // 7. Lister tous les ItemPickup dans la scène
         Debug.Log("\n--- Objets ItemPickup dans la scène ---");
-        ItemPickup[] pickups = FindObjectsOfType<ItemPickup>();
+        ItemPickup[] pickups = FindObjectsByType<ItemPickup>(FindObjectsSortMode.None);
         if (pickups.Length == 0)
         {
             Debug.LogWarning("⚠️ Aucun ItemPickup trouvé dans la scène !");

@@ -4,46 +4,41 @@ using System.Collections.Generic;
 public class Inventory : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private int maxSlots = 2; // 2 places par défaut
+    [SerializeField] private int maxSlots = 2;
 
     [Header("Status")]
-    [SerializeField] private bool hasBackpack = false; // Pour suivre si le sac a été équipé
+    [SerializeField] private bool hasBackpack = false;
 
-    // Notre liste d'objets actuelle
     public List<ItemData> items = new List<ItemData>();
 
-    // Propriétés publiques
     public int MaxSlots => maxSlots;
     public int CurrentSlots => items.Count;
     public bool HasBackpack => hasBackpack;
 
     public bool AddItem(ItemData itemToAdd)
     {
-        // Vérification spéciale : Est-ce un sac à dos ?
         if (itemToAdd.isBackpack)
         {
-            // Empêcher de ramasser plusieurs sacs
             if (hasBackpack)
             {
-                Debug.Log("⚠️ Vous avez déjà un sac à dos !");
+                Debug.Log("You already have a backpack!");
                 return false;
             }
 
-            maxSlots += 3; // +3 places
+            maxSlots += 3;
             hasBackpack = true;
-            Debug.Log($"🎒 Sac à dos équipé ! Capacité : {items.Count}/{maxSlots} (+3 emplacements)");
-            return true; // On "consomme" l'objet sans le mettre DANS l'inventaire
+            Debug.Log($"Backpack equipped! Capacity: {items.Count}/{maxSlots} (+3 slots)");
+            return true;
         }
 
-        // Vérification de place
         if (items.Count >= maxSlots)
         {
-            Debug.Log($"⛔ Inventaire plein ! ({items.Count}/{maxSlots})");
+            Debug.Log($"Inventory full! ({items.Count}/{maxSlots})");
             return false;
         }
 
         items.Add(itemToAdd);
-        Debug.Log($"➕ {itemToAdd.itemName} ajouté | Places : {items.Count}/{maxSlots}");
+        Debug.Log($"{itemToAdd.itemName} added | Slots: {items.Count}/{maxSlots}");
         return true;
     }
 
@@ -54,8 +49,24 @@ public class Inventory : MonoBehaviour
             items.Remove(itemToRemove);
         }
     }
-    
-    // Pour savoir si on possède un objet spécifique (ex: Pistolet)
+
+    public void RemoveItem(string itemNameToRemove)
+    {
+        ItemData itemToRemove = null;
+        foreach(var item in items)
+        {
+            if(item.itemName == itemNameToRemove)
+            {
+                itemToRemove = item;
+                break;
+            }
+        }
+        if(itemToRemove != null)
+        {
+            items.Remove(itemToRemove);
+        }
+    }
+
     public bool HasItem(string itemNameToCheck)
     {
         foreach(var item in items)

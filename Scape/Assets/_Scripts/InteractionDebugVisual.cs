@@ -123,7 +123,7 @@ public class InteractionDebugVisual : MonoBehaviour
         // Dessiner une sphère de debug autour de chaque pickup
         if (showDebugSphere)
         {
-            ItemPickup[] pickups = FindObjectsOfType<ItemPickup>();
+            ItemPickup[] pickups = FindObjectsByType<ItemPickup>(FindObjectsSortMode.None);
             foreach (var pickup in pickups)
             {
                 Gizmos.color = Color.magenta;

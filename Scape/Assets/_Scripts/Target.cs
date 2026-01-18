@@ -26,6 +26,9 @@ public class Target : MonoBehaviour
     private Color originalColor;
     private bool isDestroyed = false;
 
+    // Public accessor for onDestroyed event
+    public UnityEvent OnDestroyed => onDestroyed;
+
     private void Start()
     {
         currentHealth = maxHealth;

@@ -17,7 +17,9 @@ public class MovingTarget : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 targetPosition;
     private float moveTimer = 0f;
-    private int direction = 1; // 1 = droite/haut, -1 = gauche/bas
+#pragma warning disable 0414 // Field assigned but never used
+    private int direction = 1; // 1 = right/up, -1 = left/down (reserved for future use)
+#pragma warning restore 0414
 
     public enum MovementType
     {

@@ -162,7 +162,7 @@ public class MapDisplay : MonoBehaviour
     [ContextMenu("Copy Path from MazeBuilder")]
     public void CopyPathFromMazeBuilder()
     {
-        MazeBuilder builder = FindObjectOfType<MazeBuilder>();
+        MazeBuilder builder = FindFirstObjectByType<MazeBuilder>();
         if (builder != null)
         {
             // Use reflection to access the private correctPath field

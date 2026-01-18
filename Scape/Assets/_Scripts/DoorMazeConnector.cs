@@ -89,7 +89,7 @@ public class DoorMazeConnector : MonoBehaviour
     public void OnPlayerTeleported()
     {
         // Find the target room and notify it
-        RoomIdentifier[] rooms = FindObjectsOfType<RoomIdentifier>();
+        RoomIdentifier[] rooms = FindObjectsByType<RoomIdentifier>(FindObjectsSortMode.None);
         foreach (RoomIdentifier room in rooms)
         {
             // Use reflection to get room number
